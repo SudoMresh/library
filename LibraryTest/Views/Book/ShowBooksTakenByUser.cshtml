@@ -1,0 +1,25 @@
+﻿@model LibraryTest.Models.TakenBooksModel
+@using System.Web.Helpers;
+
+@{
+    ViewBag.Title = "ShowBooks Taken Books";
+    WebGrid grid = new WebGrid(null, rowsPerPage: @ViewBag.Model.PageSize);
+    grid.Bind(@ViewBag.Model.Books, autoSortAndPage: true, rowCount: @ViewBag.Model.PageSize);
+}
+
+<h2>Books taken by user</h2>
+
+@grid.GetHtml(tableStyle: "table table-bordered",
+ mode: WebGridPagerModes.All,
+ firstText: "<< First",
+ previousText: "< Prev",
+ nextText: "Next >",
+ lastText: "Last >>",
+    columns: grid.Columns(
+    grid.Column("Title", "Title"),
+    grid.Column("Email", "Email"),
+    grid.Column("DateTime", "DateTime"))
+)
+
+@Html.ActionLink("Back to track", "TrackBooks", "Book")
+
